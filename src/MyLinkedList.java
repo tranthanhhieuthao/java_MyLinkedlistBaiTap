@@ -7,12 +7,22 @@ public class MyLinkedList<E> {
     private int numNodes;
 
     public MyLinkedList() {
+
+    }
+
+    public Object clone() {
+        MyLinkedList<E> newList = new MyLinkedList<>();
+        Node temp = head;
+        for (int i = 0; i < size; i++) {
+            newList.addLast((E) temp.getData());
+            temp =temp.next;
+        }
+        return newList;
     }
 
     private class Node {
         private Node next;
         private Object element;
-
 
         public Node(Object element) {
             this.element = element;
@@ -58,92 +68,87 @@ public class MyLinkedList<E> {
         size++;
     }
 
-    public E removeFirst(){
+    public E removeFirst() {
         if (size == 0) return null;
         else {
-            Node temp =head;
-            head =head.next;
+            Node temp = head;
+            head = head.next;
             size--;
-            if (head == null) tail=null;
-            return (E)temp.element;
+            if (head == null) tail = null;
+            return (E) temp.element;
         }
     }
 
-    public E removeLast(){
+    public E removeLast() {
         if (size == 0) return null;
-        else if (size ==1){
+        else if (size == 1) {
             Node temp = head;
-            head =tail =null;
-            size =0;
-            return (E)temp.element;
-        }
-        else {
-            Node current =head;
-            for (int i=0;i<size;i++){
-                current =current.next;
+            head = tail = null;
+            size = 0;
+            return (E) temp.element;
+        } else {
+            Node current = head;
+            for (int i = 0; i < size; i++) {
+                current = current.next;
             }
             Node temp = tail;
-            tail =current;
-            tail.next =null;
+            tail = current;
+            tail.next = null;
             size--;
-            return (E)temp.element;
+            return (E) temp.element;
         }
     }
 
-    public E remove(int index){
-        if (index < 0 || index >=size) return null;
+    public E remove(int index) {
+        if (index < 0 || index >= size) return null;
         else if (index == 0) return removeFirst();
-        else if (index == size-1) return removeLast();
+        else if (index == size - 1) return removeLast();
         else {
-            Node previous =head;
-            for (int i=0;i<index-1;i++){
-                previous =previous.next;
+            Node previous = head;
+            for (int i = 0; i < index - 1; i++) {
+                previous = previous.next;
             }
             Node current = previous.next;
             previous.next = current.next;
             size--;
-            return (E)current.element;
+            return (E) current.element;
         }
     }
 
-    public E get(int index){
-        Node temp =head;
-        for (int i=0;i<index;i++){
-            temp =temp.next;
+    public E get(int index) {
+        Node temp = head;
+        for (int i = 0; i < index; i++) {
+            temp = temp.next;
         }
-        return (E)temp.element;
+        return (E) temp.element;
     }
 
-    public int Size(){
+    public int Size() {
         return this.size;
     }
 
-    public void printList(){
+    public void printList() {
         Node temp = head;
-        for (int i=0;i<size;i++){
+        for (int i = 0; i < size; i++) {
             System.out.println(temp.element);
-            temp =temp.next;
+            temp = temp.next;
         }
     }
 
-//    public E clone(E element){
-//        MyLinkedList<E> myLinkedList = new MyLinkedList<E>(element);
-//
-//    }
 
-    public boolean contains(E o){
+    public boolean contains(E o) {
         Node temp = head;
-        for (int i=0;i<size;i++){
-            if ((E)temp.element == o) return true;
-            temp =temp.next;
+        for (int i = 0; i < size; i++) {
+            if ((E) temp.element == o) return true;
+            temp = temp.next;
         }
         return false;
     }
 
-    public int indexOf(E o){
-        Node temp =head;
-        for (int i=0;i<size;i++){
-            if ((E)temp.element == o) return  i;
+    public int indexOf(E o) {
+        Node temp = head;
+        for (int i = 0; i < size; i++) {
+            if ((E) temp.element == o) return i;
             temp = temp.next;
         }
         return -1;

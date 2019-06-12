@@ -22,5 +22,8 @@ public class Test {
         System.out.print("Size =");
         System.out.println(myLinkedList.Size());
 
+        System.out.println("Clone:");
+        MyLinkedList<Integer> newList = (MyLinkedList<Integer>) myLinkedList.clone();
+        newList.printList();
     }
 }
